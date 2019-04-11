@@ -1,6 +1,15 @@
-#### 红坚果-前端开发文档
-##### 项目组件代码结构
-+ #### **src**
+### 红坚果-前端开发文档
+#### 项目总体架构
+    
+本次项目为一个基于PC WEB的事务所知识产权管理系统。开发中使用的语言包括html5，css3，javascript(es6)。使用到前端框架vue(^2.6.10)，UI框架element-ui(^2.4.11)，打包工具webpack(^4.29.6)，项目初始使用vue-cli构建。在整个开发过程中，使用了MVVM的设计模式，Model层即模型层主要表现为vue中可复用的各类组件，View层展现页面由vue编译组件后输出，ViewModel层主要由vue基于Object.defineProperty实现(该方法在IE8中不能对普通对象使用 只能作用于DOM对象 因此系统无法兼容相应浏览器)，同时页面用户事件的监听也由vue负责。该系统为单页面项目，页面路由由前端使用vue-router管理，页面公共数据由前端使用vuex管理。
+#### 代码书写规范
+  +  **为了统一和便于维护和合作,规范几点：**
+     - 项目中组件名用大驼峰命名
+     -  变量和方法函数用小驼峰命名且命名杜绝用中文拼音要用有意义可让开发人员理解的英文，提高可读性
+     -  代码缩进用一个tab 或者2/4个space
+     -  每一条语句结束用英文分号结束符 ';'
+#### 项目组件代码结构
++ ### **src**
     + **assets** -主要是放一些静态文件 如图片
     + **components** -项目的所有的单文件组件
         - **common** -公共组件
@@ -23,8 +32,8 @@
     +  **router** -项目路由文件
     +  **store** -全局缓存（vuex）
 
-##### API
-+ ##### 模块搭建
+#### API
++ #### 模块搭建
     1.  **路由设计**
         - 找到./src/router/router.js 在该文件里定义路由 示例：
         ``` 
@@ -226,7 +235,7 @@
         ]
         },
         ```
-  + ##### TableComponent Attributes
+  + #### TableComponent Attributes
     |参数  |说明| 类型 | 可选值 | 默认值 |
     | --- | --- | --- | --- | --- |
     |  data | 显示的数据 | array | - | - |
@@ -234,18 +243,18 @@
     | tableStyle | 样式 | object | - | - |
     | refreshProxy | aixos方法返回值 | promise | - | - |
     | refreshTableData | 请求后端数据方法 | function(option) | - | - |
-  + ##### TableComponent Events
+  + #### TableComponent Events
     | 事件名 | 说明 | 参数 |
     | --- | --- | --- |
     | refreshTableData | 刷新后端数据（get请求） | options(主要是筛选条件) | 
-  + ##### TableComponent Methods
+  + #### TableComponent Methods
     | 方法名 | 说明 | 参数 |
     | --- | --- | --- |
     | getSelection | 表格已选择的行数据 | - |
     | getSelected|  表格已选择的行数据|  flag，默认为false ,true时则不会进行空验证|
     | update | 刷新当前页 | -|
     | refresh | 刷新回到首页 | - |
-  + ##### TableComponent Slot 
+  + #### TableComponent Slot 
     | name |  说明 |
     | --- | --- |
     |bread_mark  | 面包屑 |
@@ -255,7 +264,7 @@
     ```
         <app-table :data="data" :columns="columns"></app-table>
     ```
-   + ##### AppTable Attributes
+   + #### AppTable Attributes
      |  参数 | 说明  |  类型 | 可选值  | 默认值 |
      | --- | --- | --- | --- | --- |
      | data | 表格数据 |  array |  - |  -|
@@ -273,7 +282,7 @@
      | tableSelected | 默认选择项 | array |  - |  -|
      | expandsCol | 展开数据列数 （必须配置expanded: true,）| number |  - |  3|
      | expandsSpan | 展开数据每列宽度（element-uirow-col布局） |number |  - |  4|
-  + ##### AppTable Events
+  + #### AppTable Events
     | 事件名 | 说明 | 参数 |
     | --- | --- | --- |
     | row-click |  表格行点击事件 | row, event, column |
@@ -282,17 +291,20 @@
     | cell-mouse-enter | 当单元格 hover 进入时会触发该事件  | row, column，cell, event |
     | :table-selected.sync |  当选择项变化时触发该自定义事件 |  selection |
     | refreshHeight |  表格的高度 | height |
-  + ##### AppTable Methods
+  + #### AppTable Methods
     | 方法名 | 说明 | 参数 |
     | --- | --- | --- |
     | getSelected|  表格已选择的行数据|  flag，默认为false ,true时则不会进行空验证|
     | - | 其他方法参照element官方文档 | - |
-  + ##### AppTable Slot 
+  + #### AppTable Slot 
     | name |  说明 |
     | --- | --- |
     |row_action | 作用域插槽，table右侧按钮通过插槽自定义，btns_render （行配置里）type: string|boolean|object|function |   
-    
-  + ##### StaticSelect Attributes
+  
+      ```
+        <static-select v-model="form.area" type="area"></static-select>
+      ```
+  + #### StaticSelect Attributes
     | 参数 | 说明 | 类型 | 可选值 | 默认值 |
     | --- | --- | --- | --- | --- |
     | value/v-model | 绑定值 | boolean/string/number | - | - |
@@ -302,21 +314,25 @@
     | type | 自定义数据的key | string | - | - |
     | skip | 过滤不需要的选项 | array | - | - |
     | normalFilter |  正向过滤出需要的选项 | array | - | - |
-   + ##### StaticSelect Events
+   + #### StaticSelect Events
      |  事件名| 说明 | 参数 |
      | --- | --- | --- |
      | input | input事件 | 改变的值 |
      | change | 选中时触发 | 选中的值 |
      | visible-change | 下拉框出现/隐藏触发 | 出现为true，隐藏为false，类型type |
-   + ##### StaticSelect Methods
+   + #### StaticSelect Methods
      |  方法名| 说明 | 参数 |
      | --- | --- | --- |
      | getSelected | 当前选中的值（数组） | value（可自定义） |
-   + ##### StaticSelect Slot
+   + #### StaticSelect Slot
       |  name| 说明 |
      | --- | --- | 
-     | slot | - | 
-   + ##### RemoteSelect Attributes
+     | slot | 默认 | 
+     
+      ```
+        <remote-select v-model="form.users" type="user" multiple></static-select>
+      ```
+   + #### RemoteSelect Attributes
      | 参数 | 说明 | 类型 | 可选值 | 默认值 |
      | --- | --- | --- | --- | --- |
      | value/v-model | 绑定值 | boolean/string/number | - | - |
@@ -330,17 +346,114 @@
      | addType |  新增入口页面类型 | string | - | - |
      | allow-create | 是否允许用户创建新条目,需在@/const/remoteConfig.js配置 | boolean | - | false |
      | PLACEHOLDER | Z占位符,需在@/const/remoteConfig.js配置 | string | - | - |
-    + ##### RemoteSelect Events
+    + #### RemoteSelect Events
       |  事件名| 说明 | 参数 |
       | --- | --- | --- |
       | input | input事件 | 改变的值 |
       | change | 选中时触发 | 选中的值 |
-    + ##### RemoteSelect Methods
+    + #### RemoteSelect Methods
        |  方法名| 说明 | 参数 |
       | --- | --- | --- |
       | getSelected | 当前选中的值（数组） | - |
       | clear | 清空选择框 | flag 默认为true时清空并请求远程方法 |
-    + ##### RemoteSelect Slot
+    + #### RemoteSelect Slot
       |  name| 说明 |
       | --- | --- | 
-      | slot | - |
+      | slot | 默认|
+      
+      ```  
+        <app-shrink :visible.sync="visible" :title="title"></app-shrink>
+      ```
+    + #### AppShrink Attributes
+       | 参数 | 说明 | 类型 | 可选值 | 默认值 |
+      | --- | --- | --- | --- | --- |
+      | visible.sync | 是否显示 | boolean | - | false |
+      | modal | 是否需要遮罩 | boolean | - | false |
+      | modalClick | 是否点击遮罩关闭 | boolean | - | true |
+      | title | 面板的标题 | string | - | - |
+      | size | 面板大小 | string | full-screen/large/middle/small | large |
+      | isClose | 是否需要关闭按钮 | boolean | - | true |
+    + #### AppShrink Events
+      |  事件名| 说明 | 参数 |
+      | --- | --- | --- |
+      | close | 关闭面板 |  -|
+    + #### Appshrink Methods
+       |  方法名| 说明 | 参数 |
+      | --- | --- | --- |
+      | close | 关闭面板 | - |
+    + #### Appshrink Slot
+      |  name| 说明 |
+      | --- | --- | 
+      | info | 头部提示信息 |
+      | header | 头部多加按钮等 |
+      | slot | 默认 |
+      ```
+        <app-switch v-model="form.status" type="status"></app-switch>
+      ```
+    + #### AppSwitch Attributes
+       | 参数 | 说明 | 类型 | 可选值 | 默认值 |
+      | --- | --- | --- | --- | --- |
+      | value/v-model | 绑定值 | number/boolean | - | - |
+      | type | 类型 （模式）| object/string | status/is/is_boolean/自定义对象 | - |
+      | simple | 是否在开关两头显示，为true时只在开关右侧显示onText和offText| boolean/string | - | false |
+    + #### AppSwitch Events
+      |  事件名| 说明 | 参数 |
+      | --- | --- | --- |
+      | input | input事件 |  改变值val|
+      
+      ```
+        <search-input v-model="searchValue" placeholder="搜索..." clearable></search-input>
+      ```
+    + #### searchInput Attributes
+       | 参数 | 说明 | 类型 | 可选值 | 默认值 |
+      | --- | --- | --- | --- | --- |
+      | value/v-model | 绑定值 | string/number | - | - |
+      | placeholder | 占位符| string | - |- |
+      | inputStyle | 搜索框的自定义样式 | string | - | - |
+      | clearable | 是否可清空| boolean | - |false |
+    + #### searchInput Events
+      |  事件名| 说明 | 参数 |
+      | --- | --- | --- |
+      | input | input事件 |  输入值val|
+      | enter | 回车事件 |  输入值val|
+      | click | 点击事件 |  输入值val|
+      | clear | 清空事件 |  输入值val|
+      
+      ```
+        <upload v-model="form.attachments" :file-list="attachments"></upload>
+      ```
+    + #### Upload Attributes
+       | 参数 | 说明 | 类型 | 可选值 | 默认值 |
+      | --- | --- | --- | --- | --- |
+      | value/v-model | 绑定值 | array | - | [] |
+      | fileList | 上传的文件列表 | array | - | [] |
+      | showFileList | 是否显示文件列表| boolean | - | true |
+      | limit | 最大允许上传个数 | number | - | - |
+    + #### Upload Events
+      |  事件名| 说明 | 参数 |
+      | --- | --- | --- |
+      | uploadBefore | 上传文件前的钩子 |  file|
+      | uploadSuccess | 上传成功的钩子 |  respones，file，fileList |
+    + #### Upload Methods
+       |  方法名| 说明 | 参数 |
+      | --- | --- | --- |
+      | getFileList| 获取上传文件列表 | - |
+      | clearFiles| 清空上传文件列表 | - |
+    + #### Upload Slot
+      |  name| 说明 |
+      | --- | --- | 
+      | tip | 提示信息 |
+      ```     
+           <app-button-loading :func="save" ref="loadingBtn" text="保存"></app-button-loading>
+      ```
+    + #### AppButtonLoading Attributes
+       | 参数 | 说明 | 类型 | 可选值 | 默认值 |
+      | --- | --- | --- | --- | --- |
+      | size | 按钮大小 | string | medium/small/mini | small |
+      | disabled | 是否禁用| boolean | - | false |
+      | text | 按钮的文字| string | - | 新建 |
+      | func | 点击回调函数 | function | - | - |
+      | param | add/edit模式 | string | - | add |
+    
+      
+    
